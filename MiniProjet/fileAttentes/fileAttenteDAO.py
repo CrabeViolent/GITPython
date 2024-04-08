@@ -3,6 +3,7 @@ from personnes.personne import Personne
 import database as db
 
 
+
 class fileAttenteDAO:
     # Attributs de la classe #
     connexion = db.connexion()

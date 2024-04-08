@@ -20,7 +20,7 @@ class salleCinemaDAO:
         nb_places = len(liste)
 
 
-        if nb_places < SalleCinema.capacite:
+        if nb_places < SalleCinema().capacite:
             sql = "INSERT INTO reservations (nom,place,type) VALUES(%s,%s,%s)"
             salleCinemaDAO.cursor.execute(sql, (nom,place,"ordinaire"))
             print("\n|=-= =-= =-= S U C C È S =-= =-= =-= =-= =-= =-= =-= =-= =-=|")
@@ -43,7 +43,7 @@ class salleCinemaDAO:
         liste = salleCinemaDAO.cursor.fetchall()
         nb_places = len(liste)
 
-        if nb_places < SalleCinema.capacite_speciale:
+        if nb_places < SalleCinema().capacite_speciale:
             sql = "INSERT INTO reservations (nom,place,type) VALUES(%s,%s,%s)"
             salleCinemaDAO.cursor.execute(sql, (nom,place,"special"))
             print("\n|=-= =-= =-= S U C C È S =-= =-= =-= =-= =-= =-= =-= =-= =-=|")
