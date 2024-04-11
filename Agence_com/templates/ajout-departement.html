@@ -1,0 +1,40 @@
+{% extends 'default.html' %}
+
+{% block title %} Add Employee {% endblock %}
+
+{% block content %}
+<h1 class="custom-heading"> Ajout d'un département </h1>
+<div class="button-container" style="margin-top: 10px;">
+    <div class="warning-container" style="margin-top: 10px; width: 500px; display: flex; justify-content: center; align-items: center;">
+        {% if message %}
+            {% if message == 'error' %}
+                <p class="alert alert-danger" role="alert"><strong> Erreur !</strong> Le département n'a pas été ajouté en raison d'une erreur !</p>
+            {% elif message == 'success' %}
+                <p class="alert alert-success" role="alert"><strong> Succès !</strong> Le département été ajouté avec succès !</p>
+            {% elif message == 'duplicate' %}
+                <p class="alert alert-danger" role="alert"><strong> Erreur !</strong> Le nom est déja utilisé !</p>
+            {% endif %}
+        {% else %}
+            <p class="alert alert-info" role="alert">Veuillez renseigner les champs</p>
+        {% endif %}
+    </div>
+</div>
+
+<form action="{{ url_for('traitement_departement') }}" method="POST" class="container" style="width: 1000px; margin-top: 20px;">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="nom" name="nom" placeholder="" required>
+        <label for="nom">Nom</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="emplacement" name="emplacement" placeholder="" required>
+        <label for="emplacement">Emplacement</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="direction" name="direction" placeholder="" required>
+        <label for="direction">Direction</label>
+    </div>
+    <div class="button-container">
+        <button class="custom-button mt-1">Ajouter Département</button>
+    </div>
+</form>
+{% endblock %}

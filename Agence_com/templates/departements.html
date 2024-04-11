@@ -1,0 +1,28 @@
+{% extends 'default.html' %}
+
+{% block title %} Departements page {% endblock %}
+
+{% block content %}
+
+<h1 class="custom-heading"> Départements </h1>
+<div class="container" style="width: 1000px;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Emplacement</th>
+        <th scope="col">Direction</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for departement in superliste %}
+      <tr>
+        <td>{{ departement[0] }}</td>
+        <td>{{ departement[1] }}</td>
+        <td>{{ departement[2] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

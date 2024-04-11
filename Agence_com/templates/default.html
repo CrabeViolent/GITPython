@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <style>
+    /* Style for the text area */
+    .nice-text-area {
+      width: 400px;
+      /* Set the desired width */
+      height: 200px;
+      /* Set the desired height */
+      border: 5px double orange;
+      /* Set the border color and thickness */
+      background-color: rgba(30, 30, 30, 0.6);
+      /* Set the background color with transparency */
+      padding: 10px;
+      /* Add some padding */
+      color: white;
+      /* Set the text color */
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      /* Set the font family */
+      border-radius: 12px;
+      /* Add some border radius for rounded corners */
+      resize: none;
+      /* Disable text area resizing */
+    }
+
+
+
+    .warning-container {
+      padding: 10px;
+    }
+
+    .carousel-item img {
+      height: 300px;
+      /* Set a fixed height for the carousel */
+      width: 100%;
+      /* Ensure the images fill the entire width of their containers */
+      object-fit: cover;
+      /* Scale the image to be as large as possible while maintaining its aspect ratio */
+    }
+  </style>
+
+  <style>
+    /* Style pour les titres de pages */
+    .custom-heading {
+      color: white;
+      background-color: #4CAF50;
+      padding: 15px 70px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 28px;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <style>
+    /* Style pour le bouton */
+    .custom-button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 50px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+
+      /* Add transition for smooth effect */
+    }
+
+    /* Hover effect */
+    .custom-button:hover {
+      background-color: #2b642d;
+      /* Change background color on hover */
+    }
+
+    /* Style for the button container */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+
+  <style>
+    .nav-link {
+      margin-left: 25px;
+      margin-right: 25px;
+    }
+  </style>
+
+  <style>
+    /* Style for the company name */
+    .company-name {
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      color: #FFA500;
+      margin: 20px;
+      padding: 10px 20px;
+      border: 2px solid #008000;
+      border-radius: 10px;
+      margin-right: 150px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect */
+    .company-name:hover {
+      background-color: #2b642d;
+      /* Change background color on hover */
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="company-name" href="{{ url_for('accueil') }}">Agence.COM</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') }}">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">À propos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+          </li>
+          <li class="nav-item dropdown {% if 'username' not in session %}disabled{% endif %}">
+            <a class="nav-link dropdown-toggle {% if 'username' not in session %}disabled{% endif %}" href="#"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Employés
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ url_for('employes') }}">Lister</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('ajout_employe') }}">Ajouter</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown {% if 'username' not in session %}disabled{% endif %}">
+            <a class="nav-link dropdown-toggle {% if 'username' not in session %}disabled{% endif %}" href="#"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Départements
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ url_for('departements') }}">Lister départements</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('ajout_departement') }}">Ajouter département</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        {% if 'username' not in session %}
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item" style="margin-right: 90px;">
+            <a class="custom-button" href="{{ url_for('login') }}"
+              style="color: rgb(255, 255, 255);"><strong>Connexion</strong></a>
+          </li>
+        </ul>
+        {% endif %}
+
+        {% if 'username' in session %}
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown {% if 'username' not in session %}disabled{% endif %}"
+            style="margin-right: 90px;">
+            <a class="nav-link dropdown-toggle {% if 'username' not in session %}disabled{% endif %}" href="#"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="custom-button"
+                style="background-color: rgb(86, 86, 219); color: rgb(255, 255, 255); font-size: small; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"><strong>User
+                  :</strong> {{ username }}</button>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" style="margin-right: 50px;">
+              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Déconnexion</a></li>
+            </ul>
+          </li>
+        </ul>
+        {% endif %}
+
+      </div>
+    </div>
+  </nav>
+
+
+  <div>
+    {% block content %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+  </div>
+
+</body>
+
+</html>

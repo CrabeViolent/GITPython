@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+
+{% block title %} Login page {% endblock %}
+
+{% block content %}
+<h1 class="custom-heading"> Page de connexion</h1>
+<div class="button-container" style="margin-top: 10px;">
+    <div class="warning-container" style="margin-top: 10px; width: 500px; display: flex; justify-content: center; align-items: center;">
+        {% if user %}
+            <p class="alert alert-success" role="alert">Vous êtes connecté en tant que : {{ user }}</p>
+        {% else %}
+            {% if message == "error" %}
+                <p class="alert alert-danger" role="alert">Identifiants Invalide</p>  
+            {% else %}
+                <p class="alert alert-info" role="alert">Identifiez-vous pour continuer</p>  
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+    
+<form action="{{ url_for('login') }}" method="POST" class="container mt-5" style="width: 600px;">
+    <div class="form-floating mb-4">
+        <input type="text" class="form-control" id="username" name="username" placeholder="" required>
+        <label for="username">Nom d'utilisateur :</label>
+    </div>
+    <div class="form-floating mb-4">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+        <label for="password">Mot de passe :</label>
+    </div>
+    <div class="button-container mb-4">
+        <button class="custom-button mt-1">Connexion</button>
+    </div>
+</form>
+
+{% endblock %}
